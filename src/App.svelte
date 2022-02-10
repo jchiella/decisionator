@@ -19,7 +19,10 @@
   const makeChoice = () => {
     if (list.length) {
       const choice = list[Math.floor(Math.random() * list.length)];
-      decision = 'The Decisionator says: ' + choice;
+      decision = `( ${choice} )`;
+      setTimeout(() => {
+        decision = '...';
+      }, 3000);
     }
   };
 
@@ -30,8 +33,10 @@
 
 <main class="flex justify-center items-center h-screen">
   <div>
-    <h1 class="text-4xl font-bold text-center">The Decisionator</h1>
-    <h3 class="text-2xl font-bold text-blue-600 text-center">{decision}</h3>
+    <h1 class="text-4xl font-bold text-center">[ the decisionator ]</h1>
+    <h3 class="text-2xl font-bold text-blue-600 text-center">
+      {decision}
+    </h3>
     <ol class="text-xl list-decimal my-2 ml-6">
       {#each list as item}
         <li>{item}</li>
