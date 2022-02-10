@@ -1,7 +1,8 @@
 <script>
   $: list = [];
   let textInput = '';
-  let decision = '...';
+  let decision = '. . .';
+  let decisionInProgress = false;
 
   const addItem = () => {
     if (textInput !== '') {
@@ -17,11 +18,13 @@
   };
 
   const makeChoice = () => {
-    if (list.length) {
+    if (list.length && !decisionInProgress) {
       const choice = list[Math.floor(Math.random() * list.length)];
+      decisionInProgress = true;
       decision = `( ${choice} )`;
       setTimeout(() => {
-        decision = '...';
+        decision = '. . .';
+        decisionInProgress = false;
       }, 3000);
     }
   };
@@ -56,11 +59,11 @@
     </div>
     <div class="flex justify-center mt-2">
       <button
-        class="bg-black font-bold text-white px-3 py-2 mx-1 rounded-md block"
+        class="bg-purple-600 font-bold text-white px-3 py-2 mx-1 rounded-md block"
         on:click={makeChoice}>Choose</button
       >
       <button
-        class="bg-black font-bold text-white px-3 py-2 mx-1 rounded-md block"
+        class="bg-slate-600 font-bold text-white px-3 py-2 mx-1 rounded-md block"
         on:click={clearChoices}>Clear</button
       >
     </div>
