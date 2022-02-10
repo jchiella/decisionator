@@ -1,8 +1,7 @@
 <script>
-  import { listen, text } from 'svelte/internal';
-
   $: list = [];
   let textInput = '';
+  let decision = '...';
 
   const addItem = () => {
     if (textInput !== '') {
@@ -16,12 +15,24 @@
       addItem();
     }
   };
+
+  const makeChoice = () => {
+    if (list.length) {
+      const choice = list[Math.floor(Math.random() * list.length)];
+      decision = 'The Decisionator says: ' + choice;
+    }
+  };
+
+  const clearChoices = () => {
+    list = [];
+  };
 </script>
 
 <main class="flex justify-center items-center h-screen">
   <div>
-    <h1 class="text-4xl font-bold">The Decisionator</h1>
-    <ol class="text-xl list-decimal my-2">
+    <h1 class="text-4xl font-bold text-center">The Decisionator</h1>
+    <h3 class="text-2xl font-bold text-blue-600 text-center">{decision}</h3>
+    <ol class="text-xl list-decimal my-2 ml-6">
       {#each list as item}
         <li>{item}</li>
       {/each}
@@ -36,6 +47,16 @@
       <button
         class="bg-black font-bold text-white px-3 rounded-xl"
         on:click={addItem}>+</button
+      >
+    </div>
+    <div class="flex justify-center mt-2">
+      <button
+        class="bg-black font-bold text-white px-3 py-2 mx-1 rounded-md block"
+        on:click={makeChoice}>Choose</button
+      >
+      <button
+        class="bg-black font-bold text-white px-3 py-2 mx-1 rounded-md block"
+        on:click={clearChoices}>Clear</button
       >
     </div>
   </div>
